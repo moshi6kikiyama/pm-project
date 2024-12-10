@@ -77,7 +77,21 @@ export class ServiceApi {
   }
 
   async follow(userId: string, followerId: string) {
-    const data = await this.request.post(`/api/users/follow`, { userId, followerId });
+    const data = await this.request.post(`/api/users/follow?userId=${userId}&followerId=${followerId}`);
+    return data;
+  }
+
+  async unfollow(userId: string, followerId: string) {
+    const data = await this.request.post(`/api/users/unfollow?userId=${userId}&followerId=${followerId}`);
+    return data;
+  }
+
+  async updateAvatar(file: any) {
+    const data = await this.request.post(`/api/users/upload-avatar`, file, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return data;
   }
 }
